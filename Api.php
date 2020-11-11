@@ -71,7 +71,7 @@ class Api
             $r = \json_decode($this->lastResponse->getBody()->getContents(), true);
 
             if($r['id'] != $id) return [];
-			return $r->result ?? [];
+			return $r['result'] ?? [];
         }
         
         public function getResponse(): Response
