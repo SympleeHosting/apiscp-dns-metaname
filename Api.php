@@ -55,7 +55,7 @@ class Api
             $method = strtolower($method);
             $id = "myid"; //metaname doesnt care!
 			
-            $this->lastResponse = $this->client->request("GET", "", [
+            $this->lastResponse = $this->client->request("POST", "", [
                 'headers' => [
                     'User-Agent'    => PANEL_BRAND . ' ' . APNSCP_VERSION,
                     'Accept'        => 'application/json',
@@ -70,7 +70,7 @@ class Api
             
             $r = \json_decode($this->lastResponse->getBody()->getContents(), true);
 
-            if($r->id != $id) return [];
+            if($r['id'] != $id) return [];
 			return $r->result ?? [];
         }
         

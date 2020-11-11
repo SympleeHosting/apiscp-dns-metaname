@@ -163,7 +163,8 @@
 		 */
 		protected function zoneAxfr(string $domain): ?string
 		{
-			$client = $this->makeApi();
+            $client = $this->makeApi();
+            $preamble = [];
 			try {
                 $records = $client->do('dns_zone', [$domain]);
                 
@@ -171,7 +172,6 @@
 					$this->get_hosting_nameservers($domain)), 0, []);
 
 				$ttldef = (int)array_get(preg_split('/\s+/', $soa['parameter'] ?? ''), 6, static::DNS_TTL);
-				$preamble = [];
 				if ($soa) {
 					$preamble = [
 						"${domain}.\t${ttldef}\tIN\tSOA\t${soa['parameter']}",
@@ -215,7 +215,8 @@
             }
             
             $axfrrec = implode("\n", $preamble);
-			$this->zoneCache[$domain]['text'] = $axfrrec;
+            $this->zoneCache[$domain]['text'] = $axfrrec;
+            
 
 			return $axfrrec;
 		}
