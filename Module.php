@@ -271,7 +271,7 @@
 			return true;
 		}
 
-		protected function formatRecord(Record $r)
+		protected function formatRecord(RecordBase $r)
 		{
 			$args = [
 				'type' => strtoupper($r['rr']),
