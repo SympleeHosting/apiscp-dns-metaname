@@ -12,7 +12,7 @@
 
 	use GuzzleHttp\Exception\ClientException;
 	use Module\Provider\Contracts\ProviderInterface;
-	use Opcenter\Dns\Record as BaseRecord;
+    use Opcenter\Dns\Record as RecordBase;
 
 	class Module extends \Dns_Module implements ProviderInterface
 	{
@@ -61,7 +61,7 @@
 				return false;
 			}
 			$api = $this->makeApi();
-			$record = new Record($zone, [
+			$record = new RecordBase($zone, [
 				'name'      => $subdomain,
 				'rr'        => $rr,
 				'parameter' => $param,
@@ -97,7 +97,7 @@
 			}
 			$api = $this->makeApi();
 
-			$id = $this->getRecordId($r = new Record($zone,
+			$id = $this->getRecordId($r = new RecordBase($zone,
 				['name' => $subdomain, 'rr' => $rr, 'parameter' => $param, 'ttl' => null]));
 
 			if (!$id) {
@@ -201,7 +201,7 @@
 				$preamble[] = $hostname . "\t" . $r['ttl'] . "\tIN\t" .
                     $r['type'] . "\t" . $parameter;
                     
-				$this->addCache(new Record($domain,
+				$this->addCache(new RecordBase($domain,
 					[
 						'name'      => $r['name'],
 						'rr'        => $r['type'],
@@ -234,7 +234,7 @@
 		 * @param Record $new
 		 * @return bool
 		 */
-		protected function atomicUpdate(string $zone, BaseRecord $old, BaseRecord $new): bool
+		protected function atomicUpdate(string $zone, RecordBase $old, RecordBase $new): bool
 		{
 			// @var \Cloudflare\Api\Endpoints\DNS @api
 			if (!$this->canonicalizeRecord($zone, $old['name'], $old['rr'], $old['parameter'], $old['ttl'])) {
