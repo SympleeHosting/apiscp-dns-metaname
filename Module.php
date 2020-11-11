@@ -274,4 +274,5 @@
 		protected function hasCnameApexRestriction(): bool
 		{
 			return true;
-		}
+        }
+    }
