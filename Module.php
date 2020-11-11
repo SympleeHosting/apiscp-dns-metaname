@@ -128,7 +128,7 @@
         {
                 //We can't actually add/remove with the API unless the domain is with Metaname, which is not always the case.
                 // For now stub the methods
-                return true
+                return true;
         }
 
         /**
@@ -139,7 +139,7 @@
          */
         public function remove_zone_backend(string $domain): bool
         {
-                return true
+                return true;
         }
 
 
