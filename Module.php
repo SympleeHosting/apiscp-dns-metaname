@@ -115,7 +115,33 @@
 			array_forget($this->zoneCache[$r->getZone()], $this->getCacheKey($r));
 
 			return true;
-		}
+        }
+        
+        /**
+         * Add DNS zone to service
+         *
+         * @param string $domain
+         * @param string $ip
+         * @return bool
+         */
+        public function add_zone_backend(string $domain, string $ip): bool
+        {
+                //We can't actually add/remove with the API unless the domain is with Metaname, which is not always the case.
+                // For now stub the methods
+                return true
+        }
+
+        /**
+         * Remove DNS zone from nameserver
+         *
+         * @param string $domain
+         * @return bool
+         */
+        public function remove_zone_backend(string $domain): bool
+        {
+                return true
+        }
+
 
 		/**
 		 * Get hosting nameservers
