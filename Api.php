@@ -64,7 +64,7 @@ class Api
                     'jsonrpc'       =>  '2.0',
                     'id'            =>  $id,
                     'method'        =>  $method,
-                    'params'        =>  array_merge([$api_uid,$api_key], $params),
+                    'params'        =>  array_merge([$this->api_uid,$this->api_key], $params),
                 ]
             ]);
             
