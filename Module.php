@@ -73,7 +73,7 @@
             
 			try {
 				$this->formatRecord($record);
-                $ret = $api->do('create_dns_record', $zone, $this->formatRecord($record));
+                $ret = $api->do('create_dns_record', [$zone, $this->formatRecord($record)]);
 
                 if(empty($ret)) return error("Failed to create record `%s' type %s: Response was empty", $fqdn, $rr); 
 
@@ -106,7 +106,7 @@
 			}
 
 			try {
-				$api->do('delete_dns_record', $zone, $id);
+				$api->do('delete_dns_record', [$zone, $id]);
 			} catch (ClientException $e) {
 				$fqdn = ltrim(implode('.', [$subdomain, $zone]), '.');
 
@@ -139,7 +139,7 @@
 		{
 			$client = $this->makeApi();
 			try {
-                $records = $client->do('dns_zone', $domain);
+                $records = $client->do('dns_zone', [$domain]);
                 
                 $soa = array_get($this->get_records_external('', 'soa', $domain,
 					$this->get_hosting_nameservers($domain)), 0, []);
@@ -225,7 +225,7 @@
 			try {
 				$merged = clone $old;
 				$new = $merged->merge($new);
-				$ret = $api->do('update_dns_record',$zone,$id, $this->formatRecord($new));
+				$ret = $api->do('update_dns_record',[$zone,$id, $this->formatRecord($new)]);
 				
 			} catch (ClientException $e) {
 				$reason = \json_decode($e->getResponse()->getBody()->getContents());
